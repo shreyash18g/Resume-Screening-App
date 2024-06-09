@@ -95,14 +95,14 @@ The categories include:
 
     ```bash
     git clone https://github.com/shreyash18g/Resume-Screening-App.git
-    cd resume-screening-app
+    cd Resume-Screening-App
     ```
 
 2. Set up a virtual environment:
 
     ```bash
     python3 -m venv venv
-    source venv/bin/activate
+    source venv\Scripts\activate
     ```
 
 3. Install the required dependencies:
@@ -138,3 +138,11 @@ Feature extraction is a crucial step in preparing data for model training. Commo
 ### Develop and Train Classification Models
 
 Develop classification models using popular machine learning frameworks such as Scikit-learn, TensorFlow, or PyTorch. Experiment with different architectures and hyperparameters to find the best model for your dataset.
+
+## Evaluate Model Performance
+
+Once the models are trained, evaluate their performance using appropriate metrics such as accuracy, precision, recall, and F1-score. Additionally, consider using techniques like cross-validation to ensure the reliability of your results.
+
+## Contributing
+
+Contributions to this project are welcome! Whether you want to suggest improvements, report issues, or contribute code, feel free to submit pull requests or open issues on the project's GitHub repository.
