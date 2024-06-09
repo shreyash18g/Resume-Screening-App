@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Driven Resume Analyzer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 30px;
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #1c4e80;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 25px;
+            padding: 10px;
+            border: 2px solid #4a90e2;
+            border-radius: 6px;
+            width: 100%;
+            max-width: 300px;
+            font-size: 1em;
+        }
+
+        input[type="submit"] {
+            padding: 12px 30px;
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #357abD;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .info-section {
+            background-color: #74ebd5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #e7f0fe;
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .dark-blue-text {
+            color: #1c4e80; /* Dark blue color */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container highlight">
+        <h1>AI-Powered Resume Analyzer</h1>
+        <p>Our cutting-edge system leverages machine learning to provide deep insights into your resume. We support both TXT and PDF formats. Upload your resume to get:</p>
+        <ul>
+            <li class="dark-blue-text"><strong>Career Domain Classification</strong></li>
+            <li class="dark-blue-text"><strong>Personalized Job Role Suggestions</strong></li>
+            <li class="dark-blue-text"><strong>Intelligent Information Extraction</strong></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Upload Your Professional Profile</h2>
+        <form action="/process_resume" method="post" enctype="multipart/form-data">
+            <input type="file" name="document" accept=".pdf, .txt" required>
+            <input type="submit" value="Analyze My Resume">
+        </form>
+
+        {% if error %}
+            <p style="color: #e74c3c; text-align: center; margin-top: 20px;">{{ error }}</p>
+        {% endif %}
+
+        {% if career_domain %}
+            <div class="info-section">
+                <h2>Career Insights</h2>
+                <div class="info-item">
+                    <strong>Identified Domain:</strong> {{ career_domain }}
+                </div>
+                <div class="info-item">
+                    <strong>Suggested Role:</strong> {{ suggested_role }}
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>Personal Details</h2>
+                <div class="info-item">
+                    <strong>Full Name:</strong> {{ full_name if full_name else "Not detected" }}
+                </div>
+                <div class="info-item">
+                    <strong>Contact:</strong> {{ phone_number if phone_number else "Not found" }}
+                </div>
+                <div class="info-item">
+                    <strong>Email:</strong> {{ email_address if email_address else "Not available" }}
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h2>Professional Snapshot</h2>
+                {% if key_skills %}
+                    <div class="info-item">
+                        <strong>Core Skills:</strong>
+                        <ul>
+                            {% for skill in key_skills %}
+                                <li>{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="info-item">
+                        <p>No specific skills detected. Consider adding key technical skills to your resume.</p>
+                    </div>
+                {% endif %}
+
+                {% if educational_background %}
+                    <div class="info-item">
+                        <strong>Education:</strong>
+                        <ul>
+                            {% for edu in educational_background %}
+                                <li>{{ edu }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div class="info-item">
+                        <p>Educational background not clearly stated. Ensure your degrees are prominently listed.</p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
